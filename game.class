@@ -1,0 +1,46 @@
+public class Game {
+    private Level levelOne;
+    private Level levelTwo;
+    private Level levelThree;
+
+    public void play() {
+       
+    }
+    public boolean isBonus(){
+    return true;
+    }
+
+    public int getScore() {
+        int score = 0;
+        if (levelOne.goalReached()) {
+            score += levelOne.getPoints();
+            if (levelTwo.goalReached()) {
+                score += levelTwo.getPoints();
+                if (levelThree.goalReached()) {
+                    score += levelThree.getPoints();
+                }
+            }
+        }
+        if (isBonus()) {
+            score *= 3;
+        }
+        return score;
+    }
+
+    public int findFreeBlock(int period, int duration) {
+        int freeInARow = 0;
+        for (int minute = 0; minute <= 59; minute++) {
+            if (isMinuteFree(period, minute)) {
+                freeInARow++;
+            } else {
+                freeInARow = 0;
+            }
+            if (freeInARow == duration) {
+                return minute - duration + 1;
+            }
+        }
+        return -1;
+    }
+
+
+}
